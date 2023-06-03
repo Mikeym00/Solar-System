@@ -22,10 +22,14 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 // camera.position.setZ(30);
 // camera.position.z = 100; // same thing as above, just a case of preference 
-camera.position.set(0,100,100);
+camera.position.set(0,100,30);
 
 //############################################################################################
 //############################################################################################
+const pointLight = new THREE.PointLight(0xffffff,2,300);
+scene.add(pointLight);
+const gridHelper = new THREE.GridHelper(500, 50);
+scene.add(gridHelper);
 
 
 const sun = new THREE.Mesh(
@@ -58,32 +62,28 @@ function createPlanet (size, texture, position, ring){
 }
 
 
-const mercury = createPlanet(3,mercuryTexture,30);
-const saturn = createPlanet(10,saturnTexture,140, {
+const mercury = createPlanet(3,mercuryTexture,35);
+const venus = createPlanet(4,venusTexture,45);
+const earth = createPlanet(4,earthTexture,55);
+const mars = createPlanet(3.5,marsTexture,65);
+const jupiter = createPlanet(12,jupiterTexture,90);
+const saturn = createPlanet(10,saturnTexture,130, {
     innerRadius: 10,
     outerRadius: 20,
     texture: satRingTexture
 });
+const uranus = createPlanet(5,uranusTexture,165);
+const neptune = createPlanet(5,neptuneTexture,185);
 
 
 
 //############################################################################################
 //############################################################################################
-
-const pointLight = new THREE.PointLight(0xffffff,2,300);
-scene.add(pointLight);
-
 
 // const ambientLight = new THREE.AmbientLight(0Xffffff);
 // scene.add(ambientLight);
-
 // const lightHelper = new THREE.PointLightHelper(pointLight);
 // scene.add(lightHelper);
-
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(gridHelper);
-
-const controls = new OrbitControls(camera, renderer.domElement);
 
 
 
@@ -96,23 +96,42 @@ const controls = new OrbitControls(camera, renderer.domElement);
 //     scene.add(star);
 // }
 // Array(200).fill().forEach(addStar);
-const spaceBackground = new THREE.TextureLoader().load("space.jpg");
-scene.background = spaceBackground;
+// const spaceBackground = new THREE.TextureLoader().load("space.jpg");
+// scene.background = spaceBackground;
 
 
+
+const controls = new OrbitControls(camera, renderer.domElement);
 
 
 function animate() {
     requestAnimationFrame(animate);
   
     sun.rotation.y += 0.001;
+
     mercury.obj.rotation.y += 0.005;
     mercury.planet.rotation.y += 0.01;
+
+    venus.obj.rotation.y += 0.004;
+    venus.planet.rotation.y += 0.01;
+
+    earth.obj.rotation.y += 0.007;
+    earth.planet.rotation.y += 0.01;
+
+    mars.obj.rotation.y += 0.007;
+    mars.planet.rotation.y += 0.01;
+
+    jupiter.obj.rotation.y += 0.007;
+    jupiter.planet.rotation.y += 0.01;
+
     saturn.obj.rotation.y += 0.001;
     saturn.planet.rotation.y += 0.01;
 
-    
+    uranus.obj.rotation.y += 0.007;
+    uranus.planet.rotation.y += 0.01;
 
+    neptune.obj.rotation.y += 0.007;
+    neptune.planet.rotation.y += 0.01;
 
     controls.update();
     renderer.render(scene, camera);
