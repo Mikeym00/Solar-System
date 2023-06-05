@@ -1,6 +1,6 @@
 import  * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-const starTexture = new THREE.TextureLoader().load("stars.jpg");
+
 const sunTexture = new THREE.TextureLoader().load("sun.jpg");
 const mercuryTexture = new THREE.TextureLoader().load("mercury.jpg");
 const venusTexture = new THREE.TextureLoader().load("venus.jpg");
