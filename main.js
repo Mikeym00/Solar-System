@@ -100,7 +100,6 @@ function addStar(){
     scene.add(star);
 }
 Array(500).fill().forEach(addStar);
-const spaceBackground = new THREE.TextureLoader().load("milkyway.jpg");
 
 //############################################################################################
 //############################################################################################
