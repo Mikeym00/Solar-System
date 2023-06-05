@@ -1,6 +1,6 @@
 import  * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-
+const starTexture = new THREE.TextureLoader().load("stars.jpg");
 const sunTexture = new THREE.TextureLoader().load("sun.jpg");
 const mercuryTexture = new THREE.TextureLoader().load("mercury.jpg");
 const venusTexture = new THREE.TextureLoader().load("venus.jpg");
@@ -10,6 +10,7 @@ const jupiterTexture = new THREE.TextureLoader().load("jupiter.jpg");
 const saturnTexture = new THREE.TextureLoader().load("saturn.jpg");
 const satRingTexture = new THREE.TextureLoader().load("saturnring.jpg");
 const uranusTexture = new THREE.TextureLoader().load("uranus.jpg");
+const uranusRingTexture = new THREE.TextureLoader().load("uranusring.png");
 const neptuneTexture = new THREE.TextureLoader().load("neptune.jpg");
 
 // always need canvas, camera, and renderer 
@@ -20,16 +21,17 @@ const renderer = new THREE.WebGLRenderer(
 );
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-// camera.position.setZ(30);
-// camera.position.z = 100; // same thing as above, just a case of preference 
-camera.position.set(0,100,30);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+camera.position.set(-90,140,100);
 
 //############################################################################################
 //############################################################################################
 const pointLight = new THREE.PointLight(0xffffff,2,300);
 scene.add(pointLight);
-const gridHelper = new THREE.GridHelper(500, 50);
-scene.add(gridHelper);
+const ambientLight = new THREE.AmbientLight(0X222222);
+scene.add(ambientLight);
 
 
 const sun = new THREE.Mesh(
@@ -52,9 +54,9 @@ function createPlanet (size, texture, position, ring){
                 ring.outerRadius,
                 32),
             new THREE.MeshBasicMaterial( {map: ring.texture, side: THREE.DoubleSide}));
-
         obj.add(ringMesh);
         ringMesh.position.x = position;
+
         ringMesh.rotation.x = -0.5 * Math.PI;
     }
     planet.position.x = position;
@@ -62,78 +64,78 @@ function createPlanet (size, texture, position, ring){
 }
 
 
-const mercury = createPlanet(3,mercuryTexture,35);
+const mercury = createPlanet(3,mercuryTexture,-35);
+mercury.obj.rotateY(Math.PI / 3);
 const venus = createPlanet(4,venusTexture,45);
-const earth = createPlanet(4,earthTexture,55);
+venus.obj.rotateY(Math.PI / 2);
+const earth = createPlanet(4,earthTexture,-55);
+earth.obj.rotateY(Math.PI / 3);
 const mars = createPlanet(3.5,marsTexture,65);
-const jupiter = createPlanet(12,jupiterTexture,90);
+mars.obj.rotateY(Math.PI / 2);
+const jupiter = createPlanet(12,jupiterTexture,-90);
+jupiter.obj.rotateY(Math.PI / 4);
 const saturn = createPlanet(10,saturnTexture,130, {
     innerRadius: 10,
     outerRadius: 20,
     texture: satRingTexture
 });
-const uranus = createPlanet(5,uranusTexture,165);
-const neptune = createPlanet(5,neptuneTexture,185);
-
-
+saturn.obj.rotateY(Math.PI / 4);
+const uranus = createPlanet(5,uranusTexture,165,{
+    innerRadius: 5,
+    outerRadius: 10,
+    texture: uranusRingTexture
+});
+uranus.obj.rotateY(Math.PI / 6);
+const neptune = createPlanet(5,neptuneTexture,-185);
+neptune.obj.rotateY(Math.PI / 6);
 
 //############################################################################################
 //############################################################################################
+function addStar(){
+    const geometry = new THREE.SphereGeometry(0.1,24,24);
+    const material = new THREE.MeshStandardMaterial( {color: 0xffffff} );
+    const star = new THREE.Mesh( geometry, material);
+    const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(300));
+    star.position.set(x,y,z);
+    scene.add(star);
+}
+Array(500).fill().forEach(addStar);
+const spaceBackground = new THREE.TextureLoader().load("milkyway.jpg");
 
-// const ambientLight = new THREE.AmbientLight(0Xffffff);
-// scene.add(ambientLight);
-// const lightHelper = new THREE.PointLightHelper(pointLight);
-// scene.add(lightHelper);
-
-
-
-// function addStar(){
-//     const geometry = new THREE.SphereGeometry(0.25,24,24);
-//     const material = new THREE.MeshStandardMaterial( {color: 0xffffff} );
-//     const star = new THREE.Mesh( geometry, material);
-//     const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-//     star.position.set(x,y,z);
-//     scene.add(star);
-// }
-// Array(200).fill().forEach(addStar);
-// const spaceBackground = new THREE.TextureLoader().load("space.jpg");
-// scene.background = spaceBackground;
-
-
-
-const controls = new OrbitControls(camera, renderer.domElement);
-
+//############################################################################################
+//############################################################################################
 
 function animate() {
     requestAnimationFrame(animate);
-  
-    sun.rotation.y += 0.001;
-
+    //sun orbit rotations 
+    venus.obj.rotation.y += 0.0045;
     mercury.obj.rotation.y += 0.005;
+    earth.obj.rotation.y += 0.003;
+    mars.obj.rotation.y += 0.0025;
+    jupiter.obj.rotation.y += 0.001;
+    saturn.obj.rotation.y += 0.00085;
+    uranus.obj.rotation.y += 0.0007;
+    neptune.obj.rotation.y += 0.00065;
+
+    //planet rotations
+    sun.rotation.y += 0.001;
     mercury.planet.rotation.y += 0.01;
-
-    venus.obj.rotation.y += 0.004;
     venus.planet.rotation.y += 0.01;
-
-    earth.obj.rotation.y += 0.007;
     earth.planet.rotation.y += 0.01;
-
-    mars.obj.rotation.y += 0.007;
     mars.planet.rotation.y += 0.01;
-
-    jupiter.obj.rotation.y += 0.007;
     jupiter.planet.rotation.y += 0.01;
-
-    saturn.obj.rotation.y += 0.001;
-    saturn.planet.rotation.y += 0.01;
-
-    uranus.obj.rotation.y += 0.007;
+    saturn.planet.rotation.y += 0.01
     uranus.planet.rotation.y += 0.01;
-
-    neptune.obj.rotation.y += 0.007;
     neptune.planet.rotation.y += 0.01;
 
     controls.update();
     renderer.render(scene, camera);
 }
 animate();
+
+
+window.addEventListener('resize', function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
