@@ -1,0 +1,7 @@
+
+/* canvas is fixed so our 3js solar system could be used as a webpage backgrounds */
+canvas{
+    position: fixed;
+    top:0;
+    left:0;
+}
