@@ -1,17 +1,17 @@
 import  * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
-const sunTexture = new THREE.TextureLoader().load("sun.jpg");
-const mercuryTexture = new THREE.TextureLoader().load("mercury.jpg");
-const venusTexture = new THREE.TextureLoader().load("venus.jpg");
-const earthTexture = new THREE.TextureLoader().load("earth.jpg");
-const marsTexture = new THREE.TextureLoader().load("mars.jpg");
-const jupiterTexture = new THREE.TextureLoader().load("jupiter.jpg");
-const saturnTexture = new THREE.TextureLoader().load("saturn.jpg");
-const satRingTexture = new THREE.TextureLoader().load("saturnring.jpg");
-const uranusTexture = new THREE.TextureLoader().load("uranus.jpg");
-const uranusRingTexture = new THREE.TextureLoader().load("uranusring.png");
-const neptuneTexture = new THREE.TextureLoader().load("neptune.jpg");
+const sunTexture = new THREE.TextureLoader().load("../images/sun.jpg");
+const mercuryTexture = new THREE.TextureLoader().load("../images/mercury.jpg");
+const venusTexture = new THREE.TextureLoader().load("../images/venus.jpg");
+const earthTexture = new THREE.TextureLoader().load("../images/earth.jpg");
+const marsTexture = new THREE.TextureLoader().load("../images/mars.jpg");
+const jupiterTexture = new THREE.TextureLoader().load("../images/jupiter.jpg");
+const saturnTexture = new THREE.TextureLoader().load("../images/saturn.jpg");
+const satRingTexture = new THREE.TextureLoader().load("../images/saturnring.jpg");
+const uranusTexture = new THREE.TextureLoader().load("../images/uranus.jpg");
+const uranusRingTexture = new THREE.TextureLoader().load("../images/uranusring.png");
+const neptuneTexture = new THREE.TextureLoader().load("../images/neptune.jpg");
 
 // always need canvas, camera, and renderer 
 const scene = new THREE.Scene();
