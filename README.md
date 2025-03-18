@@ -1,4 +1,4 @@
-<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />  
 # Solar System :star:
 
 Solar system model inlcuding all planets (not pluto) with working orbits and planet rotations. 
